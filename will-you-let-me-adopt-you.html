@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1, maximum-scale=5"
+  >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Will You Let Me Adopt You? 🐾</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script
+    src="https://kit.fontawesome.com/4f3ce16e3e.js"
+    crossorigin="anonymous"
+  ></script>
+
+  <style>
+    :root {
+      --warna-bg: rgba(0, 0, 0, 0.25);
+      --warna-teks: white;
+      --warna-bingkai: rgba(255, 255, 255, 0.8);
+      --bingkai: 10px;
+      --gaya-font: "Ubuntu", sans-serif;
+      --gaya-font2: "Dancing Script", cursive;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      background-color: #101010;
+      font-family: var(--gaya-font);
+      padding: 25px;
+      overflow-x: hidden;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    body::before {
+      content: "🐾 A tiny adoption request";
+      color: white;
+      opacity: 0.35;
+      font-size: clamp(10px, 2vw, 14px);
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    #linkmp3,
+    #pesanstiker {
+      display: none;
+    }
+
+    @keyframes jj {
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.03);
+      }
+    }
+
+    #bodyblur {
+      opacity: 1;
+      animation: jj 7s infinite;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: -1;
+      transition: all 1s ease;
+      overflow: hidden;
+    }
+
+    #wallpaper {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 3s ease;
+    }
+
+    #beneranblur {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.83);
+      -webkit-backdrop-filter: blur(2px);
+      backdrop-filter: blur(2px);
+      transition: all 3s ease;
+    }
+
+    blockquote {
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+      margin: 120px auto 0;
+      width: min(400px, 92vw);
+      background: none;
+      border-radius: var(--bingkai);
+      color: var(--warna-teks);
+      text-shadow: 0 2px 2px rgba(0, 0, 0, 0.8);
+      text-align: center;
+      line-height: 1.3em;
+      padding: 25px;
+    }
+
+    p {
+      color: var(--warna-teks);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.4em;
+      margin: 0 30px;
+      text-shadow: 0 2px 2px rgba(0, 0, 0, 0.8);
+      transition: all 1s ease;
+    }
+
+    #kalimat {
+      text-align: center;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    #kalimatb {
+      white-space: pre-line;
+    }
+
+    #kalimatc {
+      font-family: var(--gaya-font2);
+      font-size: 25px;
+      font-weight: 700;
+      white-space: pre-line;
+    }
+
+    @keyframes rto {
+      from {
+        transform: scale(1);
+      }
+
+      to {
+        transform: scale(1.1);
+      }
+    }
+
+    #Tombol {
+      position: relative;
+      opacity: 0;
+      margin: -100px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      list-style: none;
+      transform: scale(0.1);
+      transition: all 1s ease;
+    }
+
+    #Tombol a {
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 12px 0;
+      transition: all 0.2s ease;
+      padding: 11px 16px;
+      outline: 0;
+      border-left: 2px solid var(--warna-bingkai);
+      border-right: 2px solid var(--warna-bingkai);
+      border-radius: var(--bingkai);
+      line-height: 15px;
+      background: var(--warna-bg);
+      color: var(--warna-teks);
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    #Tombol a:hover {
+      transform: scale(0.95);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    #By {
+      min-width: 110px;
+    }
+
+    #Bn {
+      min-width: 80px;
+    }
+
+    #buttonv2 {
+      position: absolute;
+      font-size: 15px;
+      color: white;
+      background: var(--warna-bg);
+      padding: 10px;
+      border-radius: 8px;
+      line-height: 16px;
+      text-shadow: 0 2px 2px rgba(0, 0, 0, 0.8);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    #Content {
+      position: relative;
+      opacity: 0;
+      margin-top: 50px;
+      width: 100%;
+      min-height: 180px;
+      transition: all 1s ease;
+    }
+
+    #Content > * {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    #Content img {
+      display: none;
+      background: white;
+      border: 2px solid var(--warna-bingkai);
+      border-radius: 50%;
+      padding: 10px;
+      width: 90px;
+      height: 90px;
+      margin: 20px 0 0;
+      object-fit: cover;
+    }
+
+    #fotoakhir {
+      opacity: 0.1;
+      transition: all 1.5s ease;
+      transform: scale(0.1);
+    }
+
+    #suratin {
+      cursor: pointer;
+    }
+
+    #suratin img {
+      display: inline-flex;
+      background: rgba(255, 255, 255, 1);
+      border-radius: 10%;
+      padding: 10px;
+      width: 140px;
+      height: 110px;
+      transition: all 0.3s ease;
+      object-fit: contain;
+    }
+
+    #suratin img:hover {
+      transform: scale(0.9) rotate(-3deg);
+    }
+
+    .swal2-modal > * {
+      font-size: 17px;
+    }
+
+    .swal2-title {
+      line-height: 1.3em;
+      margin-right: 10px;
+      margin-left: 10px;
+      font-size: 17px;
+      text-align: center;
+      padding: 15px 30px 0;
+    }
+
+    .swal2-timer-progress-bar-container > * {
+      opacity: 0.5;
+      background: #ff7aa8;
+      margin: 0 5px;
+    }
+
+    .swal2-modal {
+      background: rgba(255, 255, 255, 1);
+      border: 1px solid #fff;
+      border-radius: var(--bingkai);
+      top: -70px;
+    }
+
+    .fa-heart {
+      opacity: 0.45;
+      color: white;
+      font-size: 27px;
+      position: fixed;
+      animation: heartMove linear 1;
+      top: -10vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes heartMove {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+      }
+
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+
+    .paw {
+      position: fixed;
+      top: -10vh;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.55;
+      animation: pawMove linear 1;
+    }
+
+    @keyframes pawMove {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+      }
+
+      100% {
+        transform: translateY(110vh) rotate(320deg);
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      body {
+        padding: 15px;
+      }
+
+      blockquote {
+        padding: 15px 8px;
+      }
+
+      p {
+        margin: 0 10px;
+      }
+
+      #kalimat {
+        font-size: 16px;
+      }
+
+      #kalimatc {
+        font-size: 23px;
+      }
+
+      #suratin img {
+        width: 125px;
+        height: 100px;
+      }
+
+      #Tombol {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="pesanstiker">
+    <img id="stiker1" src="./assets/gigitin.gif" alt="">
+    <img id="stiker2" src="./assets/cilukba.gif" alt="">
+    <img id="stiker3" src="./assets/g5.gif" alt="">
+    <img id="stiker4" src="./assets/lompatin.gif" alt="">
+  </div>
+
+  <audio
+    id="linkmp3"
+    src="./assets/dixzie-cruel-4-u.mp3"
+    preload="auto"
+    loop
+  ></audio>
+
+  <div id="bodyblur">
+    <img
+      src="./assets/wpjalanan.jpg"
+      id="wallpaper"
+      alt="Background"
+    >
+    <div id="beneranblur"></div>
+  </div>
+
+  <main id="Content">
+
+    <div id="suratin" onclick="memulai(); playAudio();">
+      <img src="./assets/envelope.png" alt="Open the envelope">
+    </div>
+
+    <p id="ket">Click the envelope! 🐾</p>
+
+    <div>
+      <img
+        src="./assets/tos.gif"
+        id="fotoakhir"
+        alt="Adoption celebration"
+      >
+    </div>
+
+    <div>
+      <blockquote id="bq">
+        <p id="kalimat"></p>
+        <p id="kalimatb"></p>
+        <p id="kalimatc"></p>
+      </blockquote>
+    </div>
+
+    <div id="Tombol">
+      <a id="By" onclick="multifungsi()">
+        <b id="tmbl">Adopt Me 🐾</b>
+      </a>
+
+      <b id="buttonv2"></b>
+
+      <a id="Bn" onclick="tolak()">
+        Run Away
+      </a>
+    </div>
+
+  </main>
+
+  <script>
+    const Content = document.getElementById("Content");
+    const ket = document.getElementById("ket");
+    const suratin = document.getElementById("suratin");
+    const bodyblur = document.getElementById("bodyblur");
+    const beneranblur = document.getElementById("beneranblur");
+    const wallpaper = document.getElementById("wallpaper");
+    const fotoakhir = document.getElementById("fotoakhir");
+    const bq = document.getElementById("bq");
+    const kalimat = document.getElementById("kalimat");
+    const kalimatb = document.getElementById("kalimatb");
+    const kalimatc = document.getElementById("kalimatc");
+
+    const Tombol = document.getElementById("Tombol");
+    const By = document.getElementById("By");
+    const Bn = document.getElementById("Bn");
+    const tmbl = document.getElementById("tmbl");
+    const buttonv2 = document.getElementById("buttonv2");
+
+    const linkmp3 = document.getElementById("linkmp3");
+
+    const stiker1 = document.getElementById("stiker1");
+    const stiker2 = document.getElementById("stiker2");
+    const stiker3 = document.getElementById("stiker3");
+    const stiker4 = document.getElementById("stiker4");
+
+    let ftom = 0;
+    let fungsi = 0;
+    let flagg = 1;
+
+    let aa = 0;
+    let ai = 0;
+
+    let katangetik = "";
+    let katangetik2 = "";
+    let pesanakhir1 = "";
+    let pesanakhir2 = "";
+    let pesanwhatsapp = "";
+
+    const swalst = Swal.mixin({
+      timer: 2500,
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      timerProgressBar: true,
+      imageWidth: 100,
+      imageHeight: 100
+    });
+
+    const swals = Swal.mixin({
+      allowOutsideClick: false,
+      cancelButtonColor: "#ff0040",
+      imageWidth: 100,
+      imageHeight: 100
+    });
+
+    function getToday() {
+      const currentDate = new Date();
+      const day = String(currentDate.getDate()).padStart(2, "0");
+
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ];
+
+      const month = monthNames[currentDate.getMonth()];
+      const year = currentDate.getFullYear();
+
+      return `${day} ${month} ${year}`;
+    }
+
+    const today = getToday();
+
+    function playAudio() {
+      if (!linkmp3 || !linkmp3.src) {
+        return;
+      }
+
+      linkmp3.volume = 0.65;
+
+      linkmp3.play().catch(() => {
+        console.log("Audio playback was blocked by the browser.");
+      });
+    }
+
+    function showDiv() {
+      Content.style.opacity = "1";
+      Content.style.marginTop = "15vh";
+      ket.style.marginTop = "30px";
+    }
+
+    function memulai() {
+      suratin.style.transition = "all 1s ease";
+      suratin.style.transform = "scale(.1)";
+      suratin.style.opacity = "0";
+
+      ket.style.transition = "all 1s ease";
+      ket.style.transform = "scale(.1)";
+      ket.style.opacity = "0";
+
+      setTimeout(pesan, 300);
+    }
+
+    function kpemb() {
+      bodyblur.style.opacity = "0.7";
+      bodyblur.style.animation = "none";
+
+      beneranblur.style.webkitBackdropFilter = "blur(5px)";
+      beneranblur.style.backdropFilter = "blur(5px)";
+
+      wallpaper.style.transform = "scale(1.8)";
+
+      suratin.style.display = "none";
+      ket.style.display = "none";
+
+      fotoakhir.style.display = "inline-flex";
+
+      setTimeout(ftmuncul, 100);
+
+      Content.style.opacity = "1";
+      Content.style.marginTop = "2vh";
+
+      bq.style.opacity = "1";
+      bq.style.visibility = "visible";
+      bq.style.marginTop = "5px";
+
+      setTimeout(ngetik, 500);
+    }
+
+    function ftmuncul() {
+      fotoakhir.style.transform = "scale(1)";
+      fotoakhir.style.opacity = "1";
+    }
+
+    function tombol() {
+      Tombol.style.marginTop = "15px";
+      Tombol.style.opacity = "1";
+      Tombol.style.transform = "scale(1)";
+
+      Bn.style.margin = "12px 0 12px 12px";
+
+      ftom = 1;
+    }
+
+    function multifungsi() {
+      if (ftom === 1) {
+        jawab();
+      }
+
+      if (ftom === 5) {
+        menuju();
+      }
+    }
+
+    function automatiqueFinale() {
+      kalimat.style.opacity = "0";
+      kalimatb.style.opacity = "0";
+
+      setTimeout(() => {
+        kalimat.innerHTML = pesanakhir1;
+        kalimatb.innerHTML = pesanakhir2;
+        kalimat.style.opacity = "1";
+        kalimatb.style.margin = "30px";
+        kalimatb.style.opacity = "1";
+      }, 700);
+    }
+
+    function ngetik() {
+      if (aa < katangetik.length) {
+        kalimat.innerHTML += katangetik.charAt(aa);
+        aa++;
+        setTimeout(ngetik, 80);
+      }
+
+      if (aa === katangetik.length) {
+        fungsi = 1;
+        setTimeout(tombol, 300);
+      }
+    }
+
+    function ngetik2() {
+      if (ai < katangetik2.length) {
+        kalimatc.innerHTML += katangetik2.charAt(ai);
+        ai++;
+        setTimeout(ngetik2, 65);
+      }
+
+      if (ai === katangetik2.length) {
+        kalimatc.style.animation = "rto 1s infinite alternate";
+        setTimeout(stakhir, 1000);
+      }
+    }
+
+    function sbakhir() {
+      kalimatc.style.opacity = "1";
+      kalimatc.style.transform = "scale(1)";
+      kalimatc.style.marginTop = "30px";
+      Bn.style.display = "none";
+    }
+
+    function stakhir() {
+      tmbl.innerHTML = "Send My Answer 💌";
+      tmbl.style.fontSize = "12px";
+
+      Tombol.style.marginTop = "10px";
+      Tombol.style.opacity = "1";
+      Tombol.style.transform = "scale(1)";
+
+      ftom = 5;
+      fungsi = 0;
+    }
+
+    async function menuju() {
+      await swals.fire({
+        title: "Adoption complete! 🐾",
+        text: "Send your answer on WhatsApp.",
+        icon: "success",
+        confirmButtonText: "Send it 💌"
+      });
+
+      const whatsappNumber = "261383089721";
+
+      const whatsappUrl =
+        "https://api.whatsapp.com/send?phone=" +
+        whatsappNumber +
+        "&text=" +
+        encodeURIComponent(pesanwhatsapp);
+
+      window.location.href = whatsappUrl;
+    }
+
+    async function jawab() {
+      startCelebration();
+
+      bodyblur.style.opacity = "0.5";
+      bodyblur.style.animation = "none";
+
+      beneranblur.style.webkitBackdropFilter = "blur(2px)";
+      beneranblur.style.backdropFilter = "blur(2px)";
+
+      wallpaper.style.transform = "scale(1)";
+
+      Tombol.style.opacity = "0";
+      Tombol.style.transform = "scale(.1)";
+
+      setTimeout(sbakhir, 3000);
+      setTimeout(ngetik2, 3100);
+
+      automatiqueFinale();
+    }
+
+    function tolak() {
+      if (fungsi !== 1) {
+        return;
+      }
+
+      if (flagg === 1) {
+        Bn.style.marginLeft = "90px";
+        Bn.style.transform = "rotate(45deg)";
+
+        buttonv2.style.opacity = "1";
+        By.style.opacity = "0";
+
+        buttonv2.innerHTML = "Tiny pets cannot escape that easily 😜";
+
+        flagg = 2;
+      } else if (flagg === 2) {
+        Bn.style.marginLeft = "111px";
+        Bn.style.transform = "rotate(135deg)";
+
+        buttonv2.innerHTML = "The adoption papers are already prepared 🤭";
+
+        flagg = 3;
+      } else {
+        Bn.style.margin = "12px 0 12px 12px";
+        Bn.style.transform = "rotate(0deg)";
+
+        buttonv2.style.opacity = "0";
+        By.style.opacity = "1";
+
+        flagg = 1;
+      }
+    }
+
+    async function pesan() {
+      await swalst.fire({
+        title: "Hey, little cutie! 🐾",
+        imageUrl: stiker1.src
+      });
+
+      await swalst.fire({
+        title: "I have been observing you very carefully... 👀",
+        imageUrl: stiker2.src
+      });
+
+      await swalst.fire({
+        title: "And my investigation revealed something serious...",
+        imageUrl: stiker3.src
+      });
+
+      await swalst.fire({
+        title: "You are far too adorable to remain unadopted 🤭🤍",
+        imageUrl: stiker4.src
+      });
+
+      katangetik =
+        "Will you let me adopt you as my favorite little pet? 🐾🤍";
+
+      pesanakhir1 =
+        "Adoption request approved! 🥳🐾";
+
+      pesanakhir2 =
+        "From " +
+        today +
+        ", you are officially entitled to unlimited affection, cuddles, treats and head pats.";
+
+      katangetik2 =
+        "Welcome home, little one.\nYou are officially my favorite pet 🤍🐾";
+
+      pesanwhatsapp =
+        "Adoption approved! 🐾🤍 I happily accept being your favorite little pet.";
+
+      kpemb();
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+
+      heart.className = "fas fa-heart";
+      heart.style.left = Math.random() * 90 + "vw";
+      heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+      heart.style.fontSize = Math.random() * 16 + 16 + "px";
+
+      document.body.appendChild(heart);
+    }
+
+    function createPaw() {
+      const paw = document.createElement("div");
+
+      paw.className = "paw";
+      paw.textContent = "🐾";
+      paw.style.left = Math.random() * 90 + "vw";
+      paw.style.animationDuration = Math.random() * 3 + 3 + "s";
+      paw.style.fontSize = Math.random() * 18 + 18 + "px";
+
+      document.body.appendChild(paw);
+    }
+
+    let celebrationStarted = false;
+
+    function startCelebration() {
+      if (celebrationStarted) {
+        return;
+      }
+
+      celebrationStarted = true;
+
+      setInterval(createHeart, 220);
+      setInterval(createPaw, 500);
+    }
+
+    setInterval(() => {
+      const hearts = document.querySelectorAll(".fa-heart");
+
+      if (hearts.length > 80) {
+        hearts[0].remove();
+      }
+
+      const paws = document.querySelectorAll(".paw");
+
+      if (paws.length > 40) {
+        paws[0].remove();
+      }
+    }, 100);
+
+    setTimeout(showDiv, 100);
+  </script>
+
+</body>
+</html>
